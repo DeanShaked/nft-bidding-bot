@@ -2,6 +2,7 @@
 
 ## **Bidding Bot**
 
+- Wallet Connection
 - Search bar
 - Collection display
 - Asset Bidding action
