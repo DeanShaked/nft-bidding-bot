@@ -18,24 +18,7 @@ const RouterConfig = () => {
       <Switch>
         {/* List all public routes here */}
         <Route path={constants.homePath} component={Markets} exact />
-        <Route path={paths.loginPath} component={Login} exact />
-        <Route path={paths.portfolioPath} component={Portfolio} exact />
-        <Route path={paths.depositPath} component={Deposit} exact />
-        <Route
-          path={paths.regulationFormPath}
-          component={RegulationForm}
-          exact
-        />
 
-        {/* List all private routes here */}
-
-        {/* List of error routes here */}
-        <Route path={paths.pageNotFoundPath} component={NotFound} exact />
-        <Route
-          path={paths.serviceUnavailablePath}
-          component={ServiceUnavailable}
-          exact
-        />
         <Route component={Markets} />
       </Switch>
     </main>
