@@ -1,13 +1,20 @@
 {
   "name": "snipe",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "api": "^4.1.0",
     "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
     "ethers": "^5.5.1",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "opensea-js": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -16,9 +23,13 @@
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
     "use-nft": "^0.10.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "web3": "^1.6.0",
+    "webpack": "^4.44.2",
+    "yarn": "^1.22.17"
   },
   "scripts": {
+    "server": "node src/server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

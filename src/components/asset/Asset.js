@@ -16,6 +16,7 @@ const Asset = ({ tokenAdress, tokenId }) => {
     <div>
       <img src={nft.image} alt="" />
       <p>Owner: {nft.owner}</p>
+      <p>Meta URL: {nft.metadataUrl}</p>
     </div>
   );
 };
