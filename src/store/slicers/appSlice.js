@@ -3,8 +3,7 @@ import { fetchAssets, fetchBundles } from "../asyncThunk";
 
 const initialState = {
   user: null,
-  assetsList: [],
-  collectionsList: [],
+  assetsList: null,
   bundlesList: [],
 };
 

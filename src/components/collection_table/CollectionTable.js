@@ -2,7 +2,7 @@ import React from "react";
 import Asset from "../asset/Asset";
 
 const CollectionTable = ({ assetList }) => {
-  console.log(assetList);
+  // console.log(assetList);
   return (
     <div className="collection-table">
       <div className="collection-container">
