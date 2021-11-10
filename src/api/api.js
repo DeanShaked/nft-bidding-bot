@@ -10,15 +10,6 @@ export const getAssets = async (collectionSlug) => {
   return response.data;
 };
 
-export const getCollections = async (asset_owner) => {
-  // params init
-  const params = { asset_owner: asset_owner };
-  const response = await axios.get(routes._URL_GET_COLLECTIONS, {
-    params: params,
-  });
-  return response.data;
-};
-
 export const getBundles = async (on_sale, owner, asset_contract_address) => {
   // params init
   const params = {

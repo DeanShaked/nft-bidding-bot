@@ -1,7 +1,7 @@
 {
   "name": "snipe",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.15.0",
@@ -10,12 +10,7 @@
     "api": "^4.1.0",
     "axios": "^0.24.0",
     "body-parser": "^1.19.0",
-    "dotenv": "^10.0.0",
     "ethers": "^5.5.1",
-    "express": "^4.17.1",
-    "helmet": "^4.6.0",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.15",
     "opensea-js": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -24,7 +19,6 @@
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
-    "use-nft": "^0.10.1",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.0",
     "webpack": "^4.44.2"

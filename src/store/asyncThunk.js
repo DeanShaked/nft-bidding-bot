@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAssets, getCollections, getBundles } from "../utils/api";
+import { getAssets, getBundles } from "../api/api";
 
 // Async request with redux to get assets list
 export const fetchAssets = createAsyncThunk(
@@ -7,15 +7,6 @@ export const fetchAssets = createAsyncThunk(
   async (collectionSlug) => {
     const response = await getAssets(collectionSlug);
     return response.assets;
-  }
-);
-
-// Async request with redux to get collections list
-export const fetchCollections = createAsyncThunk(
-  "getCollections",
-  async (asset_owner) => {
-    const response = await getCollections(asset_owner);
-    return response.data;
   }
 );
 
