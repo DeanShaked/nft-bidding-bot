@@ -1,26 +1,28 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAssets } from "./store/asyncThunk";
 import CollectionTable from "./components/collection_table/CollectionTable";
-
 import "./App.css";
 
 function App() {
-  const assetsList = [
-    [
-      {
-        tokenAddress: "0xf3114dd5c5b50a573e66596563d15a630ed359b4",
-        tokenId: "668",
-      },
-      {
-        tokenAddress: "0xf3114dd5c5b50a573e66596563d15a630ed359b4",
-        tokenId: "668",
-      },
-    ],
-  ];
+  const dispatch = useDispatch();
+  const assetsList = useSelector((state) => state.app.assetsList);
+
+  useEffect(() => {
+    dispatch(fetchAssets("desperate-ape-wives"));
+  }, []);
+
   return (
     <div className="App">
-      <div className="collection-wrapper">
-        <h3>Collection Name</h3>
-        <CollectionTable assets={assetsList} />
-      </div>
+      {assetsList ? (
+        <div className="collection-wrapper">
+          <input type="text" placeholder="enter slug" />
+          <h3>{assetsList[0].collection.name}</h3>
+          <hr />
+
+          <CollectionTable assetList={assetsList} />
+        </div>
+      ) : null}
     </div>
   );
 }

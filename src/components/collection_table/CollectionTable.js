@@ -1,21 +1,15 @@
 import React from "react";
-import { NftProvider } from "use-nft";
-import { ethersConfig } from "../../utils/config";
 import Asset from "../asset/Asset";
 
-const CollectionTable = ({ assets }) => {
+const CollectionTable = ({ assetList }) => {
+  console.log(assetList);
   return (
     <div className="collection-table">
       <div className="collection-container">
-        {assets.map((asset) => {
+        {assetList.map((asset, index) => {
           return (
-            <div className="asset-wrapper">
-              <NftProvider fetcher={["ethers", ethersConfig]}>
-                <Asset
-                  tokenAdress={asset.tokenAdress}
-                  tokenId={asset.tokenId}
-                />
-              </NftProvider>
+            <div key={index} className="asset-wrapper">
+              <Asset key={index} asset={asset} />
             </div>
           );
         })}
