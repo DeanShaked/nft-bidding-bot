@@ -1,30 +1,31 @@
+// App
+import React, { useEffect } from "react";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { fetchAssets } from "./store/asyncThunk";
-import CollectionTable from "./components/collection_table/CollectionTable";
+
+// Styles
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import ReactRouter from "./layout/ReactRouter";
 
-function App() {
-  const dispatch = useDispatch();
-  const assetsList = useSelector((state) => state.app.assetsList);
-
-  useEffect(() => {
-    dispatch(fetchAssets("desperate-ape-wives"));
-  }, []);
+const App = () => {
+  const isMetaMaskInstalled = () => {
+    //Have to check the ethereum binding on the window object to see if it's installed
+    const { ethereum } = window;
+    return Boolean(ethereum && ethereum.isMetaMask);
+  };
 
   return (
-    <div className="App">
-      {assetsList ? (
-        <div className="collection-wrapper">
-          <input type="text" placeholder="enter slug" />
-          <h3>{assetsList[0].collection.name}</h3>
-          <hr />
-
-          <CollectionTable assetList={assetsList} />
-        </div>
-      ) : null}
-    </div>
+    <BrowserRouter>
+      {!isMetaMaskInstalled() ? (
+        <div>Please Install Meta Mask </div>
+      ) : (
+        <ReactRouter />
+      )}
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

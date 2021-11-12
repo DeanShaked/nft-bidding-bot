@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchAssets, fetchBundles } from "../asyncThunk";
 
 const initialState = {
-  user: null,
-  assetsList: null,
+  user: {
+    metaMaskAccountId: "",
+  },
+  assetsList: "",
   bundlesList: [],
 };
 
@@ -12,7 +14,9 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     // Reload Assets List
-    reloadAssetsList: (state, action) => {},
+    addMetaMaskAccountId: (state, action) => {
+      state.user.metaMaskAccountId = action.payload[0];
+    },
   },
   extraReducers: {
     // Assets
@@ -27,5 +31,5 @@ export const appSlice = createSlice({
   },
 });
 
-export const { reloadAssetsList } = appSlice.actions;
+export const { reloadAssetsList, addMetaMaskAccountId } = appSlice.actions;
 export default appSlice.reducer;
