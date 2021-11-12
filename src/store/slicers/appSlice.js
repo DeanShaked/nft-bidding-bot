@@ -3,10 +3,15 @@ import { fetchAssets, fetchBundles } from "../asyncThunk";
 
 const initialState = {
   user: {
-    metaMaskAccountId: "",
+    metaMaskAccountAddress: "",
   },
   assetsList: "",
-  bundlesList: [],
+  bundlesList: "",
+  collectionSlug: "",
+  assetsOffer: {
+    tokenId: [],
+    tokenAddress: "",
+  },
 };
 
 export const appSlice = createSlice({
@@ -14,14 +19,27 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     // Reload Assets List
-    addMetaMaskAccountId: (state, action) => {
-      state.user.metaMaskAccountId = action.payload[0];
+    addmetaMaskAccountAddress: (state, action) => {
+      state.user.metaMaskAccountAddress = action.payload[0];
+    },
+    addCollectionSlug: (state, action) => {
+      state.collectionSlug = action.payload;
+    },
+    updateAssetsToOffer: (state, action) => {
+      const assetsList = action.payload;
+
+      assetsList.forEach((element, index) => {
+        return state.assetsOffer.tokenId.push(element.token_id);
+      });
+      console.log(state.assetsOffer.tokenId);
     },
   },
   extraReducers: {
     // Assets
     [fetchAssets.fulfilled]: (state, action) => {
-      state.assetsList = action.payload;
+      state.assetsList = action.payload.filter((asset, index) => {
+        return asset;
+      });
     },
 
     // Bundles
@@ -31,5 +49,10 @@ export const appSlice = createSlice({
   },
 });
 
-export const { reloadAssetsList, addMetaMaskAccountId } = appSlice.actions;
+export const {
+  reloadAssetsList,
+  addmetaMaskAccountAddress,
+  addCollectionSlug,
+  updateAssetsToOffer,
+} = appSlice.actions;
 export default appSlice.reducer;

@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  .search-input {
+    margin-right: 1rem;
+    height: 1.5rem;
+    width: 150px;
+    text-align: center;
+    border: 1px solid cornflowerblue;
+    border-radius: 25px;
+  }
+  .seach-button {
+    cursor: pointer;
+    background: cornflowerblue;
+    color: cornsilk;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 25px;
+    width: 100px;
+  }
+}

@@ -17,7 +17,7 @@ export const getBundles = async (on_sale, owner, asset_contract_address) => {
     owner: owner,
     asset_contract_address: asset_contract_address,
   };
-  const response = await axios.get(routes._URL_GET_COLLECTIONS, {
+  const response = await axios.get(routes._URL_GET_BUNDLES, {
     params: params,
   });
   return response.data;

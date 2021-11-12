@@ -1,9 +1,5 @@
 // App
-import React, { useEffect } from "react";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAssets } from "./store/asyncThunk";
+import React from "react";
 
 // Styles
 import "./App.css";
