@@ -35,7 +35,6 @@ app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
           { method: "GET" }
         )
       );
-
       // Reset variables for the next cycle.
       tokenIds = "";
       limitAllowedMultiply++;
