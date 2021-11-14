@@ -15,41 +15,41 @@ app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
   const collectionLen = req.params.collectionLength;
   const collectionSlug = req.params.collectionSlug;
   const requestsLimitAllowed = 30;
-  let limitAllowedMultiple = 1;
+  let limitAllowedMultiply = 1;
+  let i = 1;
+  let tokenIds = "";
   let promises = [];
-  let i = 2;
 
   // Iterate through the entire collection,
-  while (i < collectionLen / requestsLimitAllowed) {
-    // Token Ids is used as a query param string containing all the token Id's
-    let tokenIds = "";
+  while (i < collectionLen + 1) {
+    // Each iteration will create a tokenId param that will add up to the amount of requests allowed by OpenSea.
+    // Token Ids are used as a query param string containing all the token Id's for the Promise bundle.
+    let s = i.toString();
+    tokenIds = tokenIds + `token_ids=${s}&`;
 
-    // If the index is equal to to the limit allowed then we'll make a tokenId's bundle
-    if (i === requestsLimitAllowed * limitAllowedMultiple) {
-      // Createa a token id
-      for (let k = 1; k <= 30; k++) {
-        let s = i.toString();
-        tokenIds = tokenIds + `token_ids=${s}&`;
-      }
+    // If the index is equal to to the limit allowed then will make a Promise bundle and add it's data to the assets array .
+    if (i === requestsLimitAllowed * limitAllowedMultiply) {
+      promises.push(
+        fetch(
+          `https://api.opensea.io/api/v1/assets?${tokenIds}&order_direction=desc&limit=${requestsLimitAllowed}&offset=0&collection=${collectionSlug}`,
+          { method: "GET" }
+        )
+      );
 
-      limitAllowedMultiple++;
+      // Reset variables for the next cycle.
+      tokenIds = "";
+      limitAllowedMultiply++;
     }
-    promises.push(
-      fetch(
-        `https://api.opensea.io/api/v1/assets?${tokenIds}&order_direction=desc&limit=${requestsLimitAllowed}&offset=0&collection=${collectionSlug}`,
-        { method: "GET" }
-      )
-    );
     i++;
   }
-
-  // Parsing all promises into JSON objects,
-  // Later on, we'll filter to which asset is biddable.
+  // Parsing all promises to JSON objects.
   Promise.all(promises)
     .then((values) => {
       return Promise.all(values.map((r) => r.json())); // Turn each response to JSON format.
     })
-    .then((values) => res.send(values)) // Send back to the user the assets list
+    .then((values) => {
+      res.send(values);
+    })
     .catch((err) => console.error(err));
 });
 
