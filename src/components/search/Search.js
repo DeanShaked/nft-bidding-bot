@@ -13,9 +13,6 @@ const Search = () => {
   const [collectionSlug, setCollectionSlug] = useState("");
   const [collectionLength, setCollectionLength] = useState("");
 
-  // console.log("assets: ", assetsList);
-  // console.log("accountAddress: ", accountAddress);
-
   const handleSlugInput = (e) => {
     setCollectionSlug(e.target.value);
   };

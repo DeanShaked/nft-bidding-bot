@@ -13,8 +13,8 @@ app.get("/", (req, res) => {
 
 app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
   // Consts init
-  const collectionLen = req.params.collectionLength;
   const collectionSlug = req.params.collectionSlug;
+  const collectionLen = req.params.collectionLength;
   const requestsLimitAllowed = 30;
   let limitAllowedMultiply = 1;
   let i = 1;

@@ -1,12 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getAssets } from "../../api/api";
 import Search from "../../components/search/Search";
-import { fetchAssets } from "../../store/asyncThunk";
 
 import "./home.scss";
 const Home = () => {
-  const dispatch = useDispatch();
-
   const collectionSlug = useSelector((state) => state.app.collectionSlug);
   const collectionLength = useSelector((state) => state.app.collectionLength);
 
@@ -15,7 +13,7 @@ const Home = () => {
   if (collectionSlug !== "") {
     console.log("collectionSlug: ", collectionSlug);
     console.log("collectionLength: ", collectionLength);
-    dispatch(fetchAssets(collectionSlug, collectionLength));
+    getAssets(collectionSlug, collectionLength);
   }
 
   return (
