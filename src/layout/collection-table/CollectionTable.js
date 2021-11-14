@@ -1,7 +1,9 @@
 import React from "react";
-import Asset from "../asset/Asset";
+import { useSelector } from "react-redux";
+import Asset from "../../components/asset/Asset";
 
-const CollectionTable = ({ assetList }) => {
+const CollectionTable = () => {
+  const assetList = useSelector((state) => state.app.assetsList);
   console.log(assetList);
   return (
     <div className="collection-table">
