@@ -1,5 +1,6 @@
 // Imports
 const express = require("express");
+const { WyvernSchemaName } = require("opensea-js/lib/types");
 const app = express.Router();
 
 // Controllers
@@ -47,7 +48,24 @@ app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
       return Promise.all(values.map((r) => r.json())); // Turn each response to JSON format.
     })
     .then((values) => {
-      res.send(values);
+      // Array init
+      const assetsForOffer = [];
+
+      values.map((asset, index) => {
+        const bundle = asset.assets;
+
+        for (let i = 0; i < 30; i++) {
+          let newAsset = {
+            tokenId: "",
+            tokenAddress: "",
+            schemaName: WyvernSchemaName,
+          };
+          newAsset.tokenAddress = bundle[i].owner.address;
+          newAsset.tokenId = bundle[i].token_id;
+          assetsForOffer.push(newAsset);
+        }
+      });
+      res.send(assetsForOffer);
     })
     .catch((err) => console.error(err));
 });

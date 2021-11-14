@@ -1,24 +1,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../../components/search/Search";
-import { fetchAssets, fetchBundles } from "../../store/asyncThunk";
-import CollectionTable from "../collection-table/CollectionTable";
+import { fetchAssets } from "../../store/asyncThunk";
 
 import "./home.scss";
 const Home = () => {
   const dispatch = useDispatch();
+
   const collectionSlug = useSelector((state) => state.app.collectionSlug);
+  const collectionLength = useSelector((state) => state.app.collectionLength);
+
+  const assetsList = (state) => state.app.assetsList;
 
   if (collectionSlug !== "") {
-    dispatch(fetchAssets(collectionSlug));
-    dispatch(fetchBundles(true, "0xf1268733c6fb05ef6be9cf23d24436dcd6e0b35e"));
+    console.log("collectionSlug: ", collectionSlug);
+    console.log("collectionLength: ", collectionLength);
+    dispatch(fetchAssets(collectionSlug, collectionLength));
   }
 
   return (
     <div className="home">
       <div className="home-wrapper">
         <Search />
-        <CollectionTable />
+        {assetsList && <div>{assetsList}</div>}
       </div>
     </div>
   );
