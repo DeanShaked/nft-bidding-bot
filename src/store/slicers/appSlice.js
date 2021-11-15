@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAssets } from "../asyncThunk";
+import { fetchAssets, fetchOffers } from "../asyncThunk";
 
 const initialState = {
   user: {
@@ -7,6 +7,7 @@ const initialState = {
   },
   collectionSlug: "",
   collectionLength: "",
+  makeOrders: "",
   assetsList: "",
   assetsOffer: {},
 };
@@ -30,6 +31,9 @@ export const appSlice = createSlice({
     // Assets
     [fetchAssets.fulfilled]: (state, action) => {
       state.assetsList = action.payload;
+    },
+    [fetchOffers.fulfilled]: (state, action) => {
+      state.makeOrders = action.payload;
     },
   },
 });

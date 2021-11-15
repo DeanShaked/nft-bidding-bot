@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAssets } from "../../api/api";
+import { createBundleBuyOrder, getAssets } from "../../api/api";
 import Search from "../../components/search/Search";
 
 import "./home.scss";
@@ -8,12 +8,18 @@ const Home = () => {
   const collectionSlug = useSelector((state) => state.app.collectionSlug);
   const collectionLength = useSelector((state) => state.app.collectionLength);
 
-  const assetsList = (state) => state.app.assetsList;
+  const accountAddress = useSelector(
+    (state) => state.app.user.metaMaskAccountAddress
+  );
+  const assetsList = useSelector((state) => state.app.assetsList);
 
   if (collectionSlug !== "") {
     console.log("collectionSlug: ", collectionSlug);
     console.log("collectionLength: ", collectionLength);
     getAssets(collectionSlug, collectionLength);
+  }
+  if (assetsList !== "") {
+    createBundleBuyOrder(assetsList, accountAddress);
   }
 
   return (

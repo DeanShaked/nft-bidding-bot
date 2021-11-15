@@ -3,12 +3,9 @@ const express = require("express");
 const { WyvernSchemaName } = require("opensea-js/lib/types");
 const app = express.Router();
 
-// Controllers
-const assets = require("../controllers/assets");
-
 // Api routes
 app.get("/", (req, res) => {
-  res.json("Working");
+  res.json("ROOT");
 });
 
 app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
@@ -70,4 +67,16 @@ app.get("/getAssets/:collectionSlug/:collectionLength", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+app.get("/createBundleBuyOrder/:assets/:accountAddress", async (req, res) => {
+  const assets = req.params.assets;
+  const accountAddress = req.params.accountAddress;
+  const offer = await seaport.createBundleBuyOrder({
+    assets: assets,
+    accountAddress: accountAddress,
+    startAmount: 0.000001,
+    // Optional expiration time for the order, in Unix time (seconds):
+    expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 24), // One day from now
+  });
+  res.send(offer);
+});
 module.exports = app;
