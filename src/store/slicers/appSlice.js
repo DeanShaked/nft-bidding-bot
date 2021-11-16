@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAssets } from "../asyncThunk";
 
 const initialState = {
   user: {
@@ -7,6 +6,7 @@ const initialState = {
   },
   collectionSlug: "",
   collectionLength: "",
+  collectionOffset: "",
   assetsList: "",
   assetsOffer: {},
 };
@@ -25,18 +25,21 @@ export const appSlice = createSlice({
     addCollectionLength: (state, action) => {
       state.collectionLength = action.payload;
     },
-  },
-  extraReducers: {
-    // Assets
-    [fetchAssets.fulfilled]: (state, action) => {
+    addCollectionOffset: (state, action) => {
+      state.collectionOffset = action.payload;
+    },
+    addAssetsList: (state, action) => {
       state.assetsList = action.payload;
     },
   },
+  extraReducers: {},
 });
 
 export const {
   addmetaMaskAccountAddress,
   addCollectionSlug,
   addCollectionLength,
+  addCollectionOffset,
+  addAssetsList,
 } = appSlice.actions;
 export default appSlice.reducer;

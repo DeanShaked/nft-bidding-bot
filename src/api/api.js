@@ -1,9 +1,13 @@
 import axios from "axios";
 import routes from "../utils/routes";
 
-export const getAssets = async (collectionSlug, collectionLength) => {
+export const getAssets = async (
+  collectionSlug,
+  collectionLength,
+  collectionOffset
+) => {
   const response = await axios.get(
-    `${routes._URL_GET_ASSETS}/${collectionSlug}/${collectionLength}`
+    `${routes._URL_GET_ASSETS}/${collectionSlug}/${collectionLength}/${collectionOffset}`
   );
   return response.data;
 };
