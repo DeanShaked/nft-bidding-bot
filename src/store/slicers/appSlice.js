@@ -5,7 +5,6 @@ const initialState = {
     metaMaskAccountAddress: "",
   },
   collectionSlug: "",
-  collectionLength: "",
   collectionOffset: "",
   assetsList: "",
   assetsOffer: {},
@@ -22,9 +21,7 @@ export const appSlice = createSlice({
     addCollectionSlug: (state, action) => {
       state.collectionSlug = action.payload;
     },
-    addCollectionLength: (state, action) => {
-      state.collectionLength = action.payload;
-    },
+
     addCollectionOffset: (state, action) => {
       state.collectionOffset = action.payload;
     },
@@ -38,7 +35,6 @@ export const appSlice = createSlice({
 export const {
   addmetaMaskAccountAddress,
   addCollectionSlug,
-  addCollectionLength,
   addCollectionOffset,
   addAssetsList,
 } = appSlice.actions;

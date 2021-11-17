@@ -1,33 +1,47 @@
+import axios from "axios";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAssets } from "../../api/api";
 import MakeOffer from "../../components/makeOffer/MakeOffer";
 import Search from "../../components/search/Search";
-import { addAssetsList } from "../../store/slicers/appSlice";
+import { seaport } from "../../utils/config";
 
 import "./home.scss";
 const Home = () => {
-  const dispatch = useDispatch();
   const collectionSlug = useSelector((state) => state.app.collectionSlug);
-  const collectionLength = useSelector((state) => state.app.collectionLength);
   const collectionOffset = useSelector((state) => state.app.collectionOffset);
-  const assetsList = [];
+  const assetsList = [
+    {
+      tokenId: "",
+      tokenAddress: "",
+    },
+  ];
 
-  if (
-    collectionSlug !== "" &&
-    collectionLength !== "" &&
-    collectionOffset !== ""
-  ) {
-    getAssets(collectionSlug, collectionLength, collectionOffset).then((r) =>
-      assetsList.push(r)
-    );
+  const accountAddress = useSelector(
+    (state) => state.app.user.metaMaskAccountAddress
+  );
+
+  console.log(accountAddress);
+  if (collectionSlug !== "" && collectionOffset !== "") {
+    getAssets(collectionSlug, collectionOffset)
+      .then((r) => {
+        assetsList.push(r);
+      })
+      .then(
+        seaport.createBundleBuyOrder({
+          assets: assetsList,
+          accountAddress: accountAddress,
+          startAmount: 0.001,
+          // Optional expiration time for the order, in Unix time (seconds):
+          expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 24), // One day from now
+        })
+      );
   }
 
   return (
     <div className="home">
       <div className="home-wrapper">
         <Search />
-        {assetsList.length > 0 ? <MakeOffer aList={assetsList} /> : null}
       </div>
     </div>
   );

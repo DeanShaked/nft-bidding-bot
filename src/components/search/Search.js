@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  addCollectionLength,
   addCollectionSlug,
   addCollectionOffset,
 } from "../../store/slicers/appSlice";
@@ -12,22 +11,18 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const [collectionSlug, setCollectionSlug] = useState("");
-  const [collectionLength, setCollectionLength] = useState("");
   const [collectionOffset, setCollectionOffset] = useState("");
 
   const handleSlugInput = (e) => {
     setCollectionSlug(e.target.value);
   };
-  const handleCollectionLengthInput = (e) => {
-    setCollectionLength(e.target.value);
-  };
+
   const handleCollectionOffsetInput = (e) => {
     setCollectionOffset(e.target.value);
   };
 
   const handleClick = () => {
     dispatch(addCollectionSlug(collectionSlug));
-    dispatch(addCollectionLength(collectionLength));
     dispatch(addCollectionOffset(collectionOffset));
   };
 
@@ -40,13 +35,7 @@ const Search = () => {
         onChange={handleSlugInput}
         value={collectionSlug}
       ></input>
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Entering 100 === 1000 Assets (dym)"
-        onChange={handleCollectionLengthInput}
-        value={collectionLength}
-      ></input>
+
       <input
         className="search-input"
         type="text"
