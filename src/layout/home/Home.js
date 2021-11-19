@@ -34,6 +34,9 @@ const Home = () => {
     },
   ];
 
+  //
+  const makeOffer = async (asset) => {};
+
   // Log the user credentials to make sure
   console.log(accountAddress);
   if (collectionSlug !== "" && collectionOffset !== "") {
@@ -42,8 +45,9 @@ const Home = () => {
         assetsList.push(r);
       })
       .then((r) => {
-        assetsList[1].forEach((asset) => {
-          seaport
+        console.log(r);
+        assetsList[1].forEach(async (asset) => {
+          await seaport
             .createBuyOrder({
               asset: {
                 tokenAddress: asset.tokenAddress,
@@ -55,7 +59,6 @@ const Home = () => {
               // Optional expiration time for the order, in Unix time (seconds):
               expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 24), // One day from now
             })
-            .then((r) => console.log(r))
             .catch((err) => console.error(err));
         });
       });

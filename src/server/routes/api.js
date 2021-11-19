@@ -4,9 +4,6 @@ const express = require("express");
 const { WyvernSchemaName } = require("opensea-js/lib/types");
 const app = express.Router();
 
-// Controllers
-const assets = require("../controllers/assets");
-
 // Api routes
 app.get("/", (req, res) => {
   res.json("Working");
@@ -22,7 +19,12 @@ app.get("/getAssets/:collectionSlug/:collectionOffset", (req, res) => {
   promises.push(
     axios
       .get(
-        `https://api.opensea.io/api/v1/assets?&order_direction=asc&limit=${requestsLimitAllowed}&offset=${collectionOffset}&collection=${collectionSlug}`
+        `https://api.opensea.io/api/v1/assets?&order_direction=asc&limit=${requestsLimitAllowed}&offset=${collectionOffset}&collection=${collectionSlug}`,
+        {
+          headers: {
+            "X-API-KEY": "cc524269636647f9bc9607e87e5f0cf3",
+          },
+        }
       )
       .then((r) => r.data)
   );
