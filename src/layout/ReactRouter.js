@@ -13,7 +13,8 @@ import MetaMaskOnBoarding from "./metamask-onboarding/MetaMaskOnBoarding";
 const ReactRouter = () => {
   return (
     <Switch>
-      <Route path={"/"} component={MetaMaskOnBoarding} exact />
+      <Route path={"/"} component={Home} exact />
+
       <Route path={"/home"} component={Home} exact />
       <Route
         path={"/metamask-onboarding"}

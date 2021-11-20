@@ -1,0 +1,14 @@
+.offer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .asset-wrapper {
+    height: 200px;
+    width: 200px;
+  }
+  .asset {
+    height: 200px;
+    width: 200px;
+  }
+}

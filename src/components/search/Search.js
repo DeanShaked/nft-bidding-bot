@@ -1,10 +1,15 @@
+// App
 import React, { useState } from "react";
+
+// Redux
 import { useDispatch } from "react-redux";
+import { fetchAssets } from "../../store/asyncThunk";
 import {
   addCollectionSlug,
   addCollectionOffset,
 } from "../../store/slicers/appSlice";
 
+// Styles
 import "./search.scss";
 
 const Search = () => {
@@ -13,17 +18,14 @@ const Search = () => {
   const [collectionSlug, setCollectionSlug] = useState("");
   const [collectionOffset, setCollectionOffset] = useState("");
 
-  const handleSlugInput = (e) => {
-    setCollectionSlug(e.target.value);
-  };
+  const completeForm = () => {
+    if (collectionSlug && addCollectionOffset) {
+      dispatch(addCollectionSlug(collectionSlug));
+      dispatch(addCollectionOffset(collectionOffset));
+      const collectionReq = { collectionSlug, collectionOffset };
 
-  const handleCollectionOffsetInput = (e) => {
-    setCollectionOffset(e.target.value);
-  };
-
-  const handleClick = () => {
-    dispatch(addCollectionSlug(collectionSlug));
-    dispatch(addCollectionOffset(collectionOffset));
+      dispatch(fetchAssets(collectionReq));
+    }
   };
 
   return (
@@ -32,7 +34,7 @@ const Search = () => {
         className="search-input"
         type="text"
         placeholder="Collection Slug"
-        onChange={handleSlugInput}
+        onChange={(e) => setCollectionSlug(e.target.value)}
         value={collectionSlug}
       ></input>
 
@@ -40,10 +42,11 @@ const Search = () => {
         className="search-input"
         type="text"
         placeholder="Offset"
-        onChange={handleCollectionOffsetInput}
+        onChange={(e) => setCollectionOffset(e.target.value)}
         value={collectionOffset}
       ></input>
-      <button className="seach-button" onClick={handleClick}>
+
+      <button className="seach-button" onClick={completeForm}>
         fetchAssets
       </button>
     </div>

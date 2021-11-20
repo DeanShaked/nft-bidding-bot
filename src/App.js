@@ -5,6 +5,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import ReactRouter from "./layout/ReactRouter";
+import Home from "./layout/home/Home";
 
 const App = () => {
   const isMetaMaskInstalled = () => {

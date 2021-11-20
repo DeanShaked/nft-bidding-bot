@@ -4,72 +4,31 @@ import React from "react";
 // Redux
 import { useSelector } from "react-redux";
 
-// Api
-import { seaport } from "../../utils/config";
-import { getAssets } from "../../api/api";
-import { WyvernSchemaName } from "opensea-js/lib/types";
-
 // Components
 import Search from "../../components/search/Search";
+import Offer from "../../components/Offer/Offer";
+import MetaMaskOnBoarding from "../metamask-onboarding/MetaMaskOnBoarding";
 
 // Styling
 import "./home.scss";
 
-const Home = () => {
-  // Get the collection data from the redux store.
-  const collectionSlug = useSelector((state) => state.app.collectionSlug);
-  const collectionOffset = useSelector((state) => state.app.collectionOffset);
+// Initial value for the assets list format.
 
-  // Get the user credentials to make an offer
+const Home = () => {
   const accountAddress = useSelector(
     (state) => state.app.user.metaMaskAccountAddress
   );
+  const assetsList = useSelector((state) => state.app.assetsList);
 
-  // Initial value for the assets list format.
-  const assetsList = [
-    {
-      tokenId: "",
-      tokenAddress: "",
-      schemaName: WyvernSchemaName,
-    },
-  ];
-
-  //
-  const makeOffer = async (asset) => {};
-
-  // Log the user credentials to make sure
-  console.log(accountAddress);
-  if (collectionSlug !== "" && collectionOffset !== "") {
-    getAssets(collectionSlug, collectionOffset)
-      .then((r) => {
-        assetsList.push(r);
-      })
-      .then((r) => {
-        console.log(r);
-        assetsList[1].forEach(async (asset) => {
-          await seaport
-            .createBuyOrder({
-              asset: {
-                tokenAddress: asset.tokenAddress,
-                tokenId: asset.tokenId,
-                schemaName: WyvernSchemaName,
-              },
-              accountAddress: accountAddress,
-              startAmount: 0.001,
-              // Optional expiration time for the order, in Unix time (seconds):
-              expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 24), // One day from now
-            })
-            .catch((err) => console.error(err));
-        });
-      });
-  }
-
-  return (
+  return accountAddress ? (
     <div className="home">
       <div className="home-wrapper">
         <Search />
+        <Offer assetsList={assetsList} accountAddress={accountAddress} />
       </div>
     </div>
+  ) : (
+    <MetaMaskOnBoarding />
   );
 };
 

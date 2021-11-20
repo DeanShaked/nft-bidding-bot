@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchAssets, makeOffers } from "../asyncThunk";
 
 const initialState = {
   user: {
@@ -7,7 +8,7 @@ const initialState = {
   collectionSlug: "",
   collectionOffset: "",
   assetsList: "",
-  assetsOffer: {},
+  assetsToOffer: "",
 };
 
 export const appSlice = createSlice({
@@ -25,11 +26,15 @@ export const appSlice = createSlice({
     addCollectionOffset: (state, action) => {
       state.collectionOffset = action.payload;
     },
-    addAssetsList: (state, action) => {
+  },
+  extraReducers: {
+    [fetchAssets.fulfilled]: (state, action) => {
       state.assetsList = action.payload;
     },
+    [makeOffers.fulfilled]: (state, action) => {
+      state.assetsToOffer = action.payload;
+    },
   },
-  extraReducers: {},
 });
 
 export const {
