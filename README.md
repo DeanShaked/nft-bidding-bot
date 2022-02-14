@@ -1,3 +1,1 @@
-# OpenSea Action Store
- 
- ## Comming soon...
+# OpenSea Bidding Bot
